@@ -61,6 +61,20 @@ kubectl create -f https://raw.githubusercontent.com/jaegertracing/jaeger-operato
 kubectl create -f https://raw.githubusercontent.com/jaegertracing/jaeger-operator/${jaeger_version}/deploy/cluster_role_binding.yaml
 
 ```
+4. Install Ngnix Ingress
+```bash
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.0.3/deploy/static/provider/cloud/deploy.yaml
+```
+5. Adding all-in-one Jaeger instance
+```bash
+# Copy Jaeger file
+vagrant scp manifests/other/jaeger-all-in-one.yaml jaeger-all-in-one.yaml
+# Apply Jaeger instance
+kubectl apply -f jaeger-all-in-one.yaml -n observability
+# Expose Jaeger
+kubectl port-forward -n observability  service/simplest-query --address 0.0.0.0 16686:16686
+```
+
 4. Add Jaeger as Grafana Data Source
 ```
 # Add Jaeger using Grafana UI using this URL
@@ -71,6 +85,15 @@ jaeger-operator-metrics.default.svc.cluster.local:16686
 1. Install Vagrant plugin
 ```bash
 vagrant plugin install vagrant-scp
+```
+2. Build Backend application
+```bash
+# Remove MongoDB code since it's isn't clear what used for
+# Build Docker image 
+docker build -t mmsaad85/udacity-observability-backend:1.0.10 .
+# Push Image
+docker push mmsaad85/udacity-observability-backend:1.0.7
+# Update backend manifest container image
 ```
 2. Copy Manifest files to vagrant
 ```bash
@@ -91,7 +114,9 @@ kubectl apply -f trial.yaml
 kubectl port-forward service/prometheus-grafana --address 0.0.0.0 3000:80 -n monitoring
 ```
 
+
 ## 6. Expose Front-end application
 ```bash
-kubectl port-forward svc/frontend-service 8080:8080
+kubectl port-forward svc/backend-service 8086:8081
+kubectl port-forward svc/frontend-service 8087:8082
 ```
