@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: backend
-        image: mmsaad85/udacity-observability-backend:1.0.10 
+        image: mmsaad85/udacity-observability-backend:1.0.12 
         ports:
         - containerPort: 8081
 ---

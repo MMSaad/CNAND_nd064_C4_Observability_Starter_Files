@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: mmsaad85/udacity-observability-frontend:1.0.4
+        image: mmsaad85/udacity-observability-frontend:1.0.7
         ports:
         - containerPort: 8080
 ---
