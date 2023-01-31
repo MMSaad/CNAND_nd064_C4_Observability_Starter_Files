@@ -63,27 +63,47 @@ Name: Mustafa Saad
 
 Date: 03-01-2023
 
-Subject: Backend 4xx Errors
+Subject: Backend 500 Errors
 
 Affected Area: Backend application uptime SLO
 
 Severity: High
 
-Description: We see increasing in 4xx errors in backend application which if continue can affect our SLO of 99.95 Uptime
+Description: 
+We see increasing in 500 errors in backend service while calling service endpoint /star, That's might be code or configuration issue
+We should solve this issue since it's affecting our target SLO of 99.95%
+Endpoint trace
+![](answer-img/010.png)
 
 
 ## Creating SLIs and SLOs
 *TODO:* We want to create an SLO guaranteeing that our application has a 99.95% uptime per month. Name four SLIs that you would use to measure the success of this SLO.
 - Uptime
 - 4xx and 5xx Errors rate
+- Latency of request's response to have average under 200 MS per-request
+- CPU and Memory usage of service's pods
+
 
 
 ## Building KPIs for our plan
 *TODO*: Now that we have our SLIs and SLOs, create a list of 2-3 KPIs to accurately measure these metrics as well as a description of why those KPIs were chosen. We will make a dashboard for this, but first write them down here.
 - Applications service(s) Uptime
+    - Overall up time for services pods
 - 4xx and 5xx Error rate to 2xx success rate
+    - Indicating how our service behave for end users, Does errors affect users experience or it's within accepted rate according to our SLO
 - Request's response latency
+    - Average Request/response time and does it which our SLO of 200 ms per request
 
 ## Final Dashboard
 *TODO*: Create a Dashboard containing graphs that capture all the metrics of your KPIs and adequately representing your SLIs and SLOs. Include a screenshot of the dashboard here, and write a text description of what graphs are represented in the dashboard.  
+- Frontend Avg Response time
+    - This Gauge shows Average response time for front-end service, Which should not exceed 200 ms per-second
+- Backend Avg Response time
+    - This Gauge shows Average response time for back-end service, Which should not exceed 200 ms per-second
+- System Network usage
+    - Show transmitted data from/to our front-end and back-end services
+- Application Memory usage
+    - Show Memory used by our front-end and back-end services
+- CPU Usage
+    - Should CPU used by our front-end and back-end services
 ![](answer-img/009.png)

@@ -6,3 +6,6 @@ prometheus-client==0.12.0
 Flask-Cors==3.0.10
 jaeger-client==4.8.0
 Flask-OpenTracing==1.1.0
+pymongo==3.11.0
+Flask-PyMongo==2.3.0
+prometheus-flask-exporter==0.21.0
