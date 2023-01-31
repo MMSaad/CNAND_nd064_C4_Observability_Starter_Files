@@ -2,8 +2,13 @@ from flask import Flask, render_template, request
 import logging
 from jaeger_client import Config
 from flask_opentracing import FlaskTracing
+from prometheus_flask_exporter import PrometheusMetrics
+
 
 app = Flask(__name__)
+metrics = PrometheusMetrics(app)
+
+metrics.info('app_info', 'frontend service', version='1.0.15')
 
 
 def init_tracer(service):
